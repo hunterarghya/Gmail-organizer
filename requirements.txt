@@ -1,0 +1,7 @@
+crewai[tools]
+langchain-groq
+python-dotenv
+google-auth-oauthlib
+google-api-python-client
+langchain-community
+litellm

@@ -1,0 +1,20 @@
+triage_task:
+  description: >
+    Fetch the last 10 unread emails from the inbox. Analyze each subject line 
+    and body. Categorize them and provide a brief reasoning.
+    If no emails are found or the search tool fails, STOP and report the error. Do not make up example data.
+  expected_output: >
+    A list of emails with their ID, Sender, Category, and Reasoning.
+  agent: classifier
+
+action_task:
+  description: >
+    Review the categorized emails from the triage_task. 
+    IF and ONLY IF an email is marked as 'Urgent', use the 'create_draft' tool 
+    to write a reply to the 'Sender'. 
+    If no emails are 'Urgent', simply provide a summary saying 'No urgent emails found' 
+    and DO NOT attempt to create any drafts.
+  expected_output: >
+    A confirmation of drafts created or a clear message stating no urgent actions were required.
+  agent: responder
+  human_input: true # This enables the HITL check in the terminal
