@@ -163,5 +163,4 @@ Demonstrates:
 
 ## Author
 
-Arghya Malakar  
-Final Year CSE | Backend + Mobile Dev | Aspiring Startup Engineer
+Arghya Malakar
