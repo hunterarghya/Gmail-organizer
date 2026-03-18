@@ -1,0 +1,96 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Gmail AI Organizer</title>
+
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        background: #000080; /* DOS blue */
+        font-family: "Courier New", monospace;
+        color: #ffffff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      .container {
+        width: 600px;
+        border: 2px solid #ffffff;
+        padding: 20px;
+        background: #000080;
+      }
+
+      .title-bar {
+        text-align: center;
+        background: #c0c0c0;
+        color: #000080;
+        font-weight: bold;
+        padding: 5px;
+        margin-bottom: 20px;
+      }
+
+      .content {
+        text-align: center;
+        margin-top: 20px;
+      }
+
+      .menu {
+        margin-top: 30px;
+      }
+
+      .menu button {
+        display: block;
+        margin: 10px auto;
+        background: transparent;
+        border: 1px solid #ffffff;
+        color: #ffffff;
+        font-size: 16px;
+        padding: 6px 12px;
+        cursor: pointer;
+        width: fit-content;
+      }
+
+      .menu button:hover {
+        background: #ffffff;
+        color: #000080;
+      }
+
+      .footer {
+        margin-top: 30px;
+        display: flex;
+        justify-content: space-between;
+        font-size: 14px;
+      }
+
+      .blink {
+        animation: blink 1s steps(2, start) infinite;
+      }
+
+      @keyframes blink {
+        to {
+          visibility: hidden;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="title-bar">SYSTEM LOGIN</div>
+
+      <div class="content">
+        <h2>AI INBOX ORGANIZER</h2>
+        <p>Authenticate to continue...</p>
+      </div>
+
+      <div class="menu">
+        <button onclick="window.location.href='/auth/login/google'">
+          ▶ Sign in with Google
+        </button>
+      </div>
+    </div>
+  </body>
+</html>

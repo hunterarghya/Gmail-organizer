@@ -1,0 +1,171 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Dashboard - Gmail AI</title>
+
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        background: #000080; /* classic DOS blue */
+        font-family: "Courier New", monospace;
+        color: #ffffff;
+      }
+
+      .container {
+        width: 800px;
+        margin: 40px auto;
+        border: 2px solid #ffffff;
+        padding: 20px;
+        background: #000080;
+      }
+
+      .title-bar {
+        text-align: center;
+        background: #c0c0c0;
+        color: #000080;
+        font-weight: bold;
+        padding: 5px;
+        margin-bottom: 20px;
+      }
+
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .menu {
+        margin-top: 20px;
+        margin-bottom: 20px;
+      }
+
+      .menu button {
+        display: block;
+        background: transparent;
+        border: 1px solid #ffffff;
+        color: #ffffff;
+        font-size: 16px;
+        text-align: left;
+        padding: 5px 0;
+        cursor: pointer;
+      }
+
+      .menu button:hover {
+        background: #ffffff;
+        color: #000080;
+      }
+
+      .logout-btn {
+        border: 1px solid #ffffff;
+        padding: 5px 10px;
+        background: transparent;
+        color: #ffffff;
+        cursor: pointer;
+      }
+
+      .logout-btn:hover {
+        background: #ffffff;
+        color: #000080;
+      }
+
+      .section-title {
+        margin-top: 20px;
+        border-bottom: 1px solid #ffffff;
+        padding-bottom: 5px;
+      }
+
+      .box {
+        border: 1px solid #ffffff;
+        padding: 10px;
+        margin-top: 10px;
+        background: #000080;
+        white-space: pre-wrap;
+      }
+
+      .logs-box {
+        height: 220px;
+        overflow-y: auto;
+      }
+
+      .final-box {
+        min-height: 80px;
+      }
+
+      .footer {
+        margin-top: 20px;
+        display: flex;
+        justify-content: space-between;
+        font-size: 14px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="title-bar">MAIN MENU</div>
+
+      <div class="header">
+        <div>AI INBOX SYSTEM</div>
+        <button class="logout-btn" onclick="logout()">LOGOUT</button>
+      </div>
+
+      <div class="menu">
+        <button onclick="runAction('/actions/run-crew')">
+          ▶ Scan & Triage Inbox
+        </button>
+      </div>
+
+      <div class="section-title">[ EXECUTION LOGS ]</div>
+      <div id="logs" class="box logs-box">System ready...</div>
+
+      <div class="section-title">[ FINAL OUTPUT ]</div>
+      <div id="final" class="box final-box"></div>
+    </div>
+
+    <script>
+      const urlParams = new URLSearchParams(window.location.search);
+      const token = urlParams.get("token");
+
+      if (token) {
+        localStorage.setItem("token", token);
+        window.history.replaceState(
+          {},
+          document.title,
+          "/static/dashboard.html",
+        );
+      }
+
+      if (!localStorage.getItem("token")) {
+        window.location.href = "/static/index.html";
+      }
+
+      async function runAction(endpoint) {
+        const logsDiv = document.getElementById("logs");
+        const finalDiv = document.getElementById("final");
+
+        logsDiv.innerText = "Initializing system...\n";
+        finalDiv.innerText = "";
+
+        const response = await fetch(endpoint, {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
+
+        const data = await response.json();
+
+        logsDiv.innerText = data.logs || "No logs available";
+        finalDiv.innerText = data.output || data.detail || JSON.stringify(data);
+
+        logsDiv.scrollTop = logsDiv.scrollHeight;
+      }
+
+      function logout() {
+        localStorage.clear();
+        window.location.href = "/static/index.html";
+      }
+    </script>
+  </body>
+</html>

@@ -14,7 +14,14 @@ action_task:
     to write a reply to the 'Sender'. 
     If no emails are 'Urgent', simply provide a summary saying 'No urgent emails found' 
     and DO NOT attempt to create any drafts.
+    For EACH email marked as "Urgent":
+    Call the create_draft tool EXACTLY ONCE.
+    Never call the tool more than once per email.
+    If no urgent emails exist, return:
+    "No urgent emails found"
+    Do not repeat tool calls.
+
   expected_output: >
     A confirmation of drafts created or a clear message stating no urgent actions were required.
   agent: responder
-  human_input: true # This enables the HITL check in the terminal
+  human_input: False

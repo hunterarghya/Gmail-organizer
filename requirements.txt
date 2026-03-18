@@ -5,3 +5,13 @@ google-auth-oauthlib
 google-api-python-client
 langchain-community
 litellm
+
+
+fastapi
+uvicorn
+motor
+pymongo
+authlib
+itsdangerous
+python-jose[cryptography]
+python-multipart

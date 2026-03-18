@@ -14,7 +14,7 @@ groq_llm = LLM(
     temperature=0.0
     )
 
-# --- 1. SCHEMAS (Keep these for validation) ---
+
 class GmailSearchSchema(BaseModel):
     query: str = Field(..., description="The Gmail search query (e.g., 'is:unread').")
 
@@ -23,7 +23,7 @@ class GmailDraftSchema(BaseModel):
     to: str = Field(..., description="Recipient email address.")
     subject: str = Field(..., description="Subject line.")
 
-# --- 2. CUSTOM TOOLS (Keep these, they work well) ---
+
 class GmailSearch(BaseTool):
     name: str = "search_gmail"
     description: str = "Search Gmail for unread emails and return snippets."
@@ -62,7 +62,7 @@ class GmailDraft(BaseTool):
         draft = self.api_resource.users().drafts().create(userId='me', body=create_message).execute()
         return f"Draft created successfully. Draft ID: {draft['id']}"
 
-# --- 3. CREW SETUP ---
+
 class ZeroInboxCrew:
     def __init__(self):
         # Load YAML configs
