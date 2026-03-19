@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Request, HTTPException
 from fastapi.responses import RedirectResponse
 from backend.core.db import users_col
+from backend.core.config import settings
 from backend.auth.oidc import oauth
 from backend.auth.utils import create_access_token
 from datetime import datetime
@@ -10,7 +11,7 @@ router = APIRouter(prefix="/auth", tags=["Authentication"])
 
 @router.get("/login/google")
 async def google_login(request: Request):
-    redirect_uri = "http://localhost:8000/auth/google/callback"
+    redirect_uri = settings.GOOGLE_REDIRECT_URI
 
     return await oauth.google.authorize_redirect(
         request,

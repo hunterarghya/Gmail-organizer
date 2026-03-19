@@ -120,8 +120,8 @@ class ZeroInboxCrew:
         search_tool = GmailSearch(creds_data=self.creds_bundle)
         draft_tool = GmailDraft(creds_data=self.creds_bundle)
 
-        classifier = Agent(config=self.agents_config['classifier'], tools=[search_tool], llm=groq_llm, verbose=True, max_iter=3)
-        responder = Agent(config=self.agents_config['responder'], tools=[draft_tool], llm=groq_llm, verbose=True, max_iter=3)
+        classifier = Agent(config=self.agents_config['classifier'], tools=[search_tool], llm=groq_llm, verbose=True, max_iter=2)
+        responder = Agent(config=self.agents_config['responder'], tools=[draft_tool], llm=groq_llm, verbose=True, max_iter=2)
 
         triage_task = Task(config=self.tasks_config['triage_task'], agent=classifier)
         action_task = Task(config=self.tasks_config['action_task'], agent=responder, context=[triage_task])
